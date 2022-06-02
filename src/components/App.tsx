@@ -1,5 +1,7 @@
 import "./App.css";
 import React from "react";
+import { Login } from "./Login/Login";
+import { CharacterList } from "./CharacterList/CharacterList";
 
 //React application can be represented as a tree of React components
 //This is a react root component
@@ -12,30 +14,6 @@ import React from "react";
 //name, health, fraction, weapon, damage per hit, render the list of characters
 //in the App component using list
 export const App = () => {
-  //JSX can be assigned to a variable
-  const characters = [
-    {
-      name: "Goku",
-      health: 100,
-      fraction: "Saiyan",
-      weapon: "Ki",
-      damagePerHit: 10,
-    },
-    {
-      name: "Bobrik",
-      health: 150,
-      fraction: "Random",
-      weapon: "Bow",
-      damagePerHit: 6,
-    },
-    {
-      name: "Valera",
-      health: 80,
-      fraction: "Ukraine",
-      weapon: "Tanto",
-      damagePerHit: 15,
-    },
-  ];
   const header = (
     //we can only use className in JSX, because class is a reserved word in JS
     //JSX can have only one parent element
@@ -45,20 +23,23 @@ export const App = () => {
     </div>
   );
 
-  const characterList = (
-    <ul>
-      {characters.map((character) =>
-       (
-        <li key={character.name}>
-          <h3>{character.name}</h3>
-          <p>{character.health}</p>
-          <p>{character.fraction}</p>
-          <p>{character.weapon}</p>
-          <p>{character.damagePerHit}</p>
-        </li>
-      ))}
-    </ul>
-  );
+  const transformCharacterToListItem = (character: any) => {
+    return (
+      //When you use repeating elements in JSX, you should use key attribute
+      //It's required for React to be able to update the element
+      <li key={character.name}>
+        <h3>{character.name}</h3>
+        <p>{character.health}</p>
+        <p>{character.fraction}</p>
+        <p>{character.weapon}</p>
+        <p>{character.damagePerHit}</p>
+      </li>
+    );
+  };
+
+  //This variable is assigned to a JSX element
+  //JSX element starts with parenthesis and ends with a closing parenthesis
+  //const characterList = <ul>{characters.map(transformCharacterToListItem)}</ul>;
 
   //JSX is called a javascript XML, this is a syntax extension
   //for rendering HTML in javascript
@@ -70,7 +51,8 @@ export const App = () => {
   );
   return (
     <div className="App">
-      {characterList}
+      <Login />
+      <CharacterList />
     </div>
   );
 };
