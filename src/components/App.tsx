@@ -10,9 +10,7 @@ import { CharacterList } from "./CharacterList/CharacterList";
 //return JSX and be exported from a file
 //try to abstain from default export
 
-//Create a list of characters for sword art game, they should have following properties:
-//name, health, fraction, weapon, damage per hit, render the list of characters
-//in the App component using list
+
 export const App = () => {
   const header = (
     //we can only use className in JSX, because class is a reserved word in JS
