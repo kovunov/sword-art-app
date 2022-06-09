@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import { Login } from "./Login/Login";
 import { CharacterList } from "./CharacterList/CharacterList";
 
@@ -10,8 +10,12 @@ import { CharacterList } from "./CharacterList/CharacterList";
 //return JSX and be exported from a file
 //try to abstain from default export
 
+//Let's create a functionality that only when user logged in as admin,
+//we can see the character list, otherwise we see the simple message like
+//"You are not logged in"
 
 export const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const header = (
     //we can only use className in JSX, because class is a reserved word in JS
     //JSX can have only one parent element
@@ -19,6 +23,12 @@ export const App = () => {
       <h1 className="jsx-style">Hello, Sword Art Gamers</h1>
       <h3>Welcome</h3>
     </div>
+  );
+
+  const userNotLoggedIn = (
+    <h3 className="not-logged-in">
+      Please log in as admin to see character list
+    </h3>
   );
 
   const transformCharacterToListItem = (character: any) => {
@@ -49,8 +59,8 @@ export const App = () => {
   );
   return (
     <div className="App">
-      <Login />
-      <CharacterList />
+      <Login setLoggedIn={setIsLoggedIn} />
+      {isLoggedIn ? <CharacterList /> : userNotLoggedIn}
     </div>
   );
 };
