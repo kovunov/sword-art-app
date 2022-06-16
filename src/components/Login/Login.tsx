@@ -21,6 +21,7 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
   //You can create even handlers two ways: using an anonymous function
   // or using a named function
   const usernameHandler = (event: any) => {
+    console.log("Event", event);
     setUserName(event.target.value);
   };
 
@@ -34,6 +35,8 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
       setLoggedIn(false);
     }
   };
+  console.log("Component rendered with userName: " + userName);
+
   return (
     <div>
       <label>User name: </label>
