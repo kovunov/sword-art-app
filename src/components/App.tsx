@@ -18,7 +18,7 @@ import { useFetch } from "../hooks/useFetch";
 export const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { response, error } = useFetch(
-    "https://jsonplaceholdser.typicode.com/posts"
+    "https://jsonplaceholder.typicode.com/posts"
   );
 
   if (!response) {
@@ -29,10 +29,6 @@ export const App = () => {
     //We can use React.Fragment instead of div
     //In react we can't render objects or arrays
     return <>Error: {error.message} </>;
-  }
-
-  if (response) {
-    console.log(response);
   }
 
   const userNotLoggedIn = (
