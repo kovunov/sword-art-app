@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Login } from "./Login/Login";
 import { CharacterList } from "./CharacterList/CharacterList";
 import { useFetch } from "../hooks/useFetch";
+import { CharacterSelection } from "./CharacterSelection/CharacterSelection";
 
 //React application can be represented as a tree of React components
 //This is a react root component
@@ -17,6 +18,29 @@ import { useFetch } from "../hooks/useFetch";
 
 export const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const characters = [
+    {
+      name: "Goku",
+      health: 100,
+      fraction: "Saiyan",
+      weapon: "Ki",
+      damagePerHit: 10,
+    },
+    {
+      name: "Bobrik",
+      health: 150,
+      fraction: "Random",
+      weapon: "Bow",
+      damagePerHit: 6,
+    },
+    {
+      name: "Valera",
+      health: 80,
+      fraction: "Ukraine",
+      weapon: "Tanto",
+      damagePerHit: 15,
+    },
+  ];
   const { response, error } = useFetch(
     "https://jsonplaceholder.typicode.com/posts"
   );
@@ -38,8 +62,9 @@ export const App = () => {
   );
   return (
     <div className="App">
-      <Login setLoggedIn={setIsLoggedIn} />
-      {isLoggedIn ? <CharacterList /> : userNotLoggedIn}
+      {!isLoggedIn ? <Login setLoggedIn={setIsLoggedIn} /> : null}
+      {isLoggedIn ? <CharacterList characters={characters} /> : userNotLoggedIn}
+      {isLoggedIn ? <CharacterSelection characters={characters} /> : null}
     </div>
   );
 };

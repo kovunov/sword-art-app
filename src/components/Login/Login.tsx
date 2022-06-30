@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
+import { Button, Input, Flex, Text } from "@chakra-ui/react";
+
 const adminCredentials = { userName: "admin", password: "admin" };
 
 interface LoginProps {
@@ -57,21 +59,31 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
   };
 
   return (
-    <div>
-      <label>User name: </label>
-      <input
+    <Flex justify={"center"} direction="column" align={"center"}>
+      <Text size={"lg"} mb="1%">
+        User name:{" "}
+      </Text>
+      <Input
         ref={inputRef}
         type="text"
         value={userName}
+        width="50%"
         onChange={usernameHandler}
+        mb="2%"
       />
-      <label>Password: </label>
-      <input
+      <Text size={"lg"} mb="1%">
+        Password:{" "}
+      </Text>
+      <Input
+        mb="2%"
         type="password"
         value={password}
+        width="50%"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={loginHandler}>Login</button>
-    </div>
+      <Button colorScheme={"blue"} onClick={loginHandler}>
+        Login
+      </Button>
+    </Flex>
   );
 };

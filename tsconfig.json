@@ -17,6 +17,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noImplicitAny": false,
     "noEmit": true,
     "jsx": "react-jsx"
   },
