@@ -17,6 +17,7 @@ export const Battleground = ({ battleCharacters, setWinner, winner }) => {
     attacksByFighterOne.current += 1;
     if (fighterTwo.health - damagePerHit * attacksByFighterOne.current <= 0) {
       setWinner(name);
+      return;
     }
     //we need to check prior to the state update, because state update is async
     setTimeout(() => handleSecondFighterAttack(), 2000);
@@ -31,6 +32,7 @@ export const Battleground = ({ battleCharacters, setWinner, winner }) => {
     attacksByFighterTwo.current += 1;
     if (fighterOne.health - damagePerHit * attacksByFighterTwo.current <= 0) {
       setWinner(name);
+      return;
     }
   };
 
