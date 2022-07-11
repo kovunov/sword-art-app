@@ -4,6 +4,7 @@ import "./App.css";
 import { CharactersScreen } from "./screens/CharactersScreen";
 import { Login } from "./Login/Login";
 import { Battleground } from "./Battleground/Battleground";
+import { Text } from "@chakra-ui/react";
 
 //React application can be represented as a tree of React components
 //This is a react root component
@@ -20,20 +21,21 @@ export const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFightGoingOn, setFightStart] = useState(false);
   const [battleCharacters, setBattleCharacters] = useState([]);
+  const [winner, setWinner] = useState(null);
   const characters = [
     {
       name: "Goku",
       health: 100,
       fraction: "Saiyan",
       weapon: "Ki",
-      damagePerHit: 10,
+      damagePerHit: 25,
     },
     {
       name: "Bobrik",
       health: 150,
       fraction: "Random",
       weapon: "Bow",
-      damagePerHit: 6,
+      damagePerHit: 19,
     },
     {
       name: "Valera",
@@ -68,8 +70,17 @@ export const App = () => {
           setBattleCharacters={setBattleCharacters}
         />
       ) : null}
-      {isFightGoingOn ? (
-        <Battleground battleCharacters={battleCharacters} />
+      {isFightGoingOn && !winner ? (
+        <Battleground
+          winner={winner}
+          setWinner={setWinner}
+          battleCharacters={battleCharacters}
+        />
+      ) : null}
+      {isFightGoingOn && winner ? (
+        <Text fontSize={"5xl"} fontWeight="800">
+          Winner of the battle is {winner}
+        </Text>
       ) : null}
     </div>
   );
