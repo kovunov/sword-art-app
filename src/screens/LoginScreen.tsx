@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import { Button, Input, Flex, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const adminCredentials = { userName: "admin", password: "admin" };
 
@@ -11,13 +12,16 @@ interface LoginProps {
 //In React we have two main types of components: stateless and stateful
 //1. User types his login and password and clicks login button
 //2. If the login password combination is correct, the user is redirected to the character list
-export const Login = ({ setLoggedIn }: LoginProps) => {
+export const LoginScreen = ({ setLoggedIn }: LoginProps) => {
   //Rule 1: we never update the state directly, we always use setState
   //Rule 2: when state changes, the component re-renders
   //Rule 3: setState is asynchronous, it doesn't block the execution of the code
   //UseState returns an array with two elements: state and the function to update it
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  //This hook is used to navigate to other pages
+  const navigate = useNavigate();
 
   //countRef.current is a reference to the current value of count, e.g 0
   //1) Value of the reference is persistent across re-renders
@@ -52,6 +56,7 @@ export const Login = ({ setLoggedIn }: LoginProps) => {
       password === adminCredentials.password
     ) {
       setLoggedIn(true);
+      navigate("/characters");
     } else {
       setLoggedIn(false);
     }

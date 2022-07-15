@@ -1,13 +1,24 @@
 import React, { useRef, useState } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
-import { useInterval } from "../../hooks/useInterval";
+import { useInterval } from "../hooks/useInterval";
+import { useNavigate } from "react-router-dom";
 
-export const Battleground = ({ battleCharacters, setWinner, winner }) => {
+export const BattlegroundScreen = ({
+  isLoggedIn,
+  battleCharacters,
+  setWinner,
+  winner,
+}) => {
   const [fighterOne, fighterTwo] = battleCharacters;
   const [firstAttacks, setFirstAttacks] = useState(false);
   const [secondAttacks, setSecondAttacks] = useState(false);
   const attacksByFighterOne = useRef(0);
   const attacksByFighterTwo = useRef(0);
+  const navigate = useNavigate();
+
+  if (!isLoggedIn) {
+    navigate("/");
+  }
 
   const handleFightersClash = () => {
     const { name, damagePerHit } = fighterOne;
@@ -17,6 +28,7 @@ export const Battleground = ({ battleCharacters, setWinner, winner }) => {
     attacksByFighterOne.current += 1;
     if (fighterTwo.health - damagePerHit * attacksByFighterOne.current <= 0) {
       setWinner(name);
+      navigate("/winner");
       return;
     }
     //we need to check prior to the state update, because state update is async
@@ -32,6 +44,7 @@ export const Battleground = ({ battleCharacters, setWinner, winner }) => {
     attacksByFighterTwo.current += 1;
     if (fighterOne.health - damagePerHit * attacksByFighterTwo.current <= 0) {
       setWinner(name);
+      navigate("/winner");
       return;
     }
   };
