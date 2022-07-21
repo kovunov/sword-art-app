@@ -5,9 +5,7 @@ import { CharacterSelection } from "../components/CharacterSelection/CharacterSe
 
 //Screens are composed of components and they group what we want to see on the screen at one time
 export const CharactersScreen = ({
-  characters,
-  setBattleCharacters,
-  isLoggedIn,
+  isLoggedIn
 }) => {
   const navigate = useNavigate();
 
@@ -16,10 +14,8 @@ export const CharactersScreen = ({
   }
   return (
     <>
-      <CharacterList characters={characters} />
+      <CharacterList />
       <CharacterSelection
-        characters={characters}
-        setBattleCharacters={setBattleCharacters}
       />
     </>
   );

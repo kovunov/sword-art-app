@@ -10,11 +10,14 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setBattleCharacters } from "../../slices/charactersSlice";
 
-export const CharacterSelection = ({
-  characters,
-  setBattleCharacters,
-}) => {
+export const CharacterSelection = () => {
+  const characters = useSelector((state: any) => state.characters.characterList);
+  //By using useDispatch we can dispatch actions to the store
+  const dispatch = useDispatch();
+   
   const [heroesSelected, setHeroesSelected] = useState<Array<string>>([]);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
   const navigate = useNavigate();
@@ -35,9 +38,9 @@ export const CharacterSelection = ({
       return;
     }
     setIsAlertVisible(false);
-    setBattleCharacters(
+    dispatch(setBattleCharacters(
       characters.filter((character) => heroesSelected.includes(character.name))
-    );
+    ));
     navigate("/battleground")
   };
 
