@@ -6,6 +6,11 @@ import { createSlice } from "@reduxjs/toolkit";
 //3. The store dispatches the action to all the reducers
 //4. Correct reducer is called and the state is updated
 //5. The component is re-rendered
+
+//The breakdown of remaining marks will be: 10, 10, 25
+
+//Slice in redux is a container that holds the state of the part of the application,
+//provides actions and reducers to manage the state
 export const charactersSlice = createSlice({
   name: "characters",
   initialState: {
