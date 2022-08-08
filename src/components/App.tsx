@@ -6,6 +6,7 @@ import { WinnerScreen } from "../screens/WinnerScreen";
 import { LoginScreen } from "../screens/LoginScreen";
 import { BattlegroundScreen } from "../screens/BattlegroundScreen";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AddCharacterScreen } from "../screens/AddCharacterScreen";
 
 //React application can be represented as a tree of React components
 //This is a react root component
@@ -38,25 +39,14 @@ export const App = () => {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={<LoginScreen />}
-          />
-          <Route
-            path="/characters"
-            element={<CharactersScreen/>}
-          />
-          <Route
-            path="/winner"
-            element={<WinnerScreen winner={winner} />}
-          />
+          <Route path="/" element={<LoginScreen />} />
+          <Route path="/characters" element={<CharactersScreen />} />
+          <Route path="/winner" element={<WinnerScreen winner={winner} />} />
+          <Route path="/manageCharacter" element={<AddCharacterScreen />} />
           <Route
             path="/battleground"
             element={
-              <BattlegroundScreen
-                setWinner={setWinner}
-                winner={winner}
-              />
+              <BattlegroundScreen setWinner={setWinner} winner={winner} />
             }
           />
         </Routes>

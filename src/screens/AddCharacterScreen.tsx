@@ -1,24 +1,28 @@
 import { Alert, AlertIcon, Button, Input, Stack } from "@chakra-ui/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/redux";
 import { addCharacter, Character } from "../slices/charactersSlice";
 
 export const AddCharacterScreen = () => {
   const [name, setName] = useState("");
-  const [damagePerHit, setDamagePerHit] = useState(0);
-  const [health, setHealth] = useState(0);
+  const [damagePerHit, setDamagePerHit] = useState("");
+  const [health, setHealth] = useState("");
   const [fraction, setFraction] = useState("");
   const [weapon, setWeapon] = useState("");
 
   const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   const validateValues = () => {
+    const damage = parseInt(damagePerHit);
+    const hp = parseInt(health);
     if (
       name.length === 0 ||
-      damagePerHit < 0 ||
-      health < 0 ||
+      damage < 0 ||
+      hp < 0 ||
       fraction.length === 0 ||
       weapon.length === 0
     ) {
@@ -28,19 +32,20 @@ export const AddCharacterScreen = () => {
     return true;
   };
 
-  const handleCharacterAdd = () => {
+  const handleCharacterAddition = () => {
     if (!validateValues()) {
       return;
     }
     setIsAlertVisible(false);
     const newCharacter = {
       name,
-      damagePerHit,
-      health,
+      damagePerHit: parseInt(damagePerHit),
+      health: parseInt(health),
       fraction,
       weapon,
     };
     dispatch(addCharacter(newCharacter as Character));
+    navigate("/characters");
   };
 
   const alert = (
@@ -64,16 +69,16 @@ export const AddCharacterScreen = () => {
         onChange={(e) => setFraction(e.target.value)}
       />
       <Input
-        type="number"
+        type="text"
         value={health}
         placeholder="Please enter a character health"
-        onChange={(e) => setHealth(Number(e.target.value))}
+        onChange={(e) => setHealth(e.target.value)}
       />
       <Input
-        type="number"
+        type="text"
         value={damagePerHit}
         placeholder="Please enter a character damage per hit"
-        onChange={(e) => setDamagePerHit(Number(e.target.value))}
+        onChange={(e) => setDamagePerHit(e.target.value)}
       />
       <Input
         type="text"
@@ -81,7 +86,7 @@ export const AddCharacterScreen = () => {
         onChange={(e) => setWeapon(e.target.value)}
         placeholder="Please enter a character weapon"
       />
-      <Button onClick={handleCharacterAdd}>Add character</Button>
+      <Button onClick={handleCharacterAddition}>Add character</Button>
       {isAlertVisible && alert}
     </Stack>
   );

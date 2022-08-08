@@ -1,16 +1,9 @@
 import React from "react";
 import { CharacterListItem } from "./CharacterListItem/CharacterListItem";
-import {
-  Table,
-  TableCaption,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Button,
-} from "@chakra-ui/react";
+import { Table, Thead, Tr, Th, Tbody, Button } from "@chakra-ui/react";
 import "./CharacterList.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // Props are passed to the component via attributes
 
@@ -23,11 +16,11 @@ export const CharacterList = () => {
   //by using useSelector we basically get small piece of data from the store
   //and we subscribe to it
   const characters = useSelector((state) => state.characters.characterList);
+  const navigate = useNavigate();
   //returns true if Math.random() is more than 0.5
   return (
     <>
       <Table>
-        <TableCaption>Character table</TableCaption>
         <Thead>
           <Tr>
             <Th>Name</Th>
@@ -46,7 +39,15 @@ export const CharacterList = () => {
           ))}
         </Tbody>
       </Table>
-      <Button onClick>Go to add character screen</Button>
+      <Button
+        colorScheme={"teal"}
+        size="lg"
+        mt="4%"
+        mb="4%"
+        onClick={() => navigate("/manageCharacter")}
+      >
+        Go to add character screen
+      </Button>
     </>
   );
 };
