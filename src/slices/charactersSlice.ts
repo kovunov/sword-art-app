@@ -10,14 +10,16 @@ export interface Character {
   health: number;
 }
 
-interface CharactersState {
+export interface CharactersState {
   characterList: Character[];
+  characterToUpdate: Character | null;
   status: string;
   error: any;
   battleCharacters: Character[];
 }
 
 const initialState: CharactersState = {
+  characterToUpdate: null,
   characterList: [],
   status: "idle",
   error: null,
@@ -66,6 +68,15 @@ export const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
+    setCharacterToUpdate: (state, action) => {
+      return {
+        characterList: state.characterList,
+        battleCharacters: state.battleCharacters,
+        status: state.status,
+        error: state.error,
+        characterToUpdate: action.payload,
+      };
+    },
     //In canonical redux we can't mutate state directly, we need to return a new state
     //But slices use Immer library to do immutable state mutations behind the scenes,
     //so we can mutate state directly.
@@ -77,6 +88,7 @@ export const charactersSlice = createSlice({
         battleCharacters: action.payload,
         status: state.status,
         error: state.error,
+        characterToUpdate: state.characterToUpdate,
       };
     },
   },
@@ -108,6 +120,6 @@ export const charactersSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setBattleCharacters } = charactersSlice.actions;
+export const { setBattleCharacters, setCharacterToUpdate } = charactersSlice.actions;
 
 export default charactersSlice.reducer;

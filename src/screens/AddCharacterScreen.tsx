@@ -1,15 +1,27 @@
 import { Alert, AlertIcon, Button, Input, Stack } from "@chakra-ui/react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/redux";
 import { addCharacter, Character } from "../slices/charactersSlice";
 
+//Tips to do update
+//1. Make sure you provide id when you update the character (url should look like 
+//http://localhost:8080/characters/1, and request type should be PUT)
+//2. Make sure you empty the characterToUpdate (make it null) once you perform the update, or add will not work
+//3. Please implement appropriate action for update, it will look pretty similar to add action
+//4. Make sure to cover cases in extraReducers
 export const AddCharacterScreen = () => {
-  const [name, setName] = useState("");
-  const [damagePerHit, setDamagePerHit] = useState("");
-  const [health, setHealth] = useState("");
-  const [fraction, setFraction] = useState("");
-  const [weapon, setWeapon] = useState("");
+  const character = useSelector(
+    (state: any) => state.characters.characterToUpdate
+  );
+  const [name, setName] = useState(character ? character.name : "");
+  const [damagePerHit, setDamagePerHit] = useState(
+    character ? character.damagePerHit : ""
+  );
+  const [health, setHealth] = useState(character ? character.health : "");
+  const [fraction, setFraction] = useState(character ? character.fraction : "");
+  const [weapon, setWeapon] = useState(character ? character.weapon : "");
 
   const [isAlertVisible, setIsAlertVisible] = useState(false);
   const navigate = useNavigate();
@@ -86,7 +98,9 @@ export const AddCharacterScreen = () => {
         onChange={(e) => setWeapon(e.target.value)}
         placeholder="Please enter a character weapon"
       />
-      <Button onClick={handleCharacterAddition}>Add character</Button>
+      <Button onClick={handleCharacterAddition}>
+        {character ? "Update Character" : "Add Character"}
+      </Button>
       {isAlertVisible && alert}
     </Stack>
   );
